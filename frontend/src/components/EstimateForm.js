@@ -3,14 +3,11 @@ import './EstimateForm.css';
 
 const HomeEstimator = () => {
   const [formData, setFormData] = useState({
-    price: '',
     bedrooms: '',
     bathrooms: '',
     stories: '',
     parkingSpots: '',
     totalRooms: '',
-    areaPerRoom: '',
-    amenityCount: '',
     mainroad: false,
     guestroom: false,
     basement: false,
@@ -54,14 +51,6 @@ const HomeEstimator = () => {
       <h2>Estimate the cost of your home!</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-grid">
-          <input
-            type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            placeholder="Price"
-            className="t-input"
-          />
           <select name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="t-input">
             <option value="">Number of Bedrooms</option>
             {[1, 2, 3, 4].map(num => (
@@ -92,22 +81,6 @@ const HomeEstimator = () => {
             value={formData.totalRooms}
             onChange={handleChange}
             placeholder="Total Rooms"
-            className="t-input"
-          />
-          <input
-            type="number"
-            name="areaPerRoom"
-            value={formData.areaPerRoom}
-            onChange={handleChange}
-            placeholder="Area per Room"
-            className="t-input"
-          />
-          <input
-            type="number"
-            name="amenityCount"
-            value={formData.amenityCount}
-            onChange={handleChange}
-            placeholder="Amenity Count"
             className="t-input"
           />
           <div className="checkbox-group">
