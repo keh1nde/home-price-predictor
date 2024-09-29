@@ -154,7 +154,7 @@ const HomeEstimator = () => {
         </div>
         <button type="submit" className="submit-button">Submit</button>
       </form>
-      <p className="footer">App created by &lt;name&gt;, visit GitHub <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">here</a></p>
+      <p className="footer">App created by Kehinde Adeoso, visit my GitHub <a href="https://github.com/keh1nde" target="_blank" rel="noopener noreferrer">here</a></p>
     </div>
   );
 };
