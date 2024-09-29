@@ -1,9 +1,10 @@
 import React from 'react';
 import HomeEstimator from './components/EstimateForm';
+import './App.css'
 
 const App = () => {
   return (
-    <div className="App">
+    <div className="center-container">
       <HomeEstimator />
     </div>
   );

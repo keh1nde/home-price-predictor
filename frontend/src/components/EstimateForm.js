@@ -37,7 +37,7 @@ const HomeEstimator = () => {
 
   return (
     <div className="estimator-container">
-      <h2>Estimate the cost of your home!</h2>
+      <h2>Home Estimator: Estimate the cost of your home!</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-grid">
           <input
