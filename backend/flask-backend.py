@@ -1,8 +1,9 @@
-from flask import Flask, request, jsonify
 import pickle
-
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 # Initializing the Flask application
 app = Flask(__name__)
+CORS(app)
 
 # Importing ML model
 with open('elastic_net_model.pkl', 'rb') as file:
