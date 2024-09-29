@@ -20,7 +20,8 @@ const HomeEstimator = () => {
     furnishingStatus: '0'
   });
 
-  // Handle input change
+  const [prediction, setPrediction] = useState(null); // State to store prediction result
+
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData({
@@ -29,15 +30,28 @@ const HomeEstimator = () => {
     });
   };
 
-  // Handle form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData); // For now, log the data, or pass it to your backend here
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData) // Send form data as JSON
+      });
+
+      const data = await response.json();
+      setPrediction(data.predicted_price); // Assuming the backend returns the prediction as 'predicted_price'
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <div className="estimator-container">
-      <h2>Home Estimator: Estimate the cost of your home!</h2>
+      <h2>Estimate the cost of your home!</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-grid">
           <input
@@ -154,7 +168,8 @@ const HomeEstimator = () => {
         </div>
         <button type="submit" className="submit-button">Submit</button>
       </form>
-      <p className="footer">App created by Kehinde Adeoso, visit my GitHub <a href="https://github.com/keh1nde" target="_blank" rel="noopener noreferrer">here</a></p>
+      {prediction && <h3>Estimated Price: ${prediction}</h3>}
+      <p className="footer">App created by &lt;name&gt;, visit GitHub <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">here</a></p>
     </div>
   );
 };
