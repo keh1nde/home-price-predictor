@@ -145,7 +145,8 @@ const HomeEstimator = () => {
       {prediction && <h3>Estimated Price: ${prediction}</h3>}
       <p className="footer">App created by &lt;name&gt;, visit GitHub
         <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">here</a></p>
-      <p className="disclaimer">App uses somewhat fictional data from <a href="https://www.kaggle.com/datasets/yasserh/housing-prices-dataset"
+      <p className="disclaimer">App and Model uses somewhat fictional data from
+        <a href="https://www.kaggle.com/datasets/yasserh/housing-prices-dataset"
       target="_blank" rel="noopener noreferrer">this</a> dataset, don't use for real analysis. </p>
     </div>
   );
