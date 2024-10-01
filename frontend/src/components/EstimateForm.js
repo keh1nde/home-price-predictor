@@ -14,8 +14,13 @@ const HomeEstimator = () => {
     hotwaterheating: false,
     airconditioning: false,
     preferredArea: false,
-    furnishingStatus: '0'
+    furnishingStatus: '0',
+    totalrooms: '',
+    areaperroom: '',
+    amenitycount: ''
   });
+
+
 
   const [prediction, setPrediction] = useState(null); // State to store prediction result
 
@@ -29,22 +34,49 @@ const HomeEstimator = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
+    // Calculate the amenity count
+    const amenityCount = calculateAmenityCount(formData);
+    const totalRooms = calculateTotalRooms(bedrooms, bathrooms);
+    const areaPerRoom = calculateAreaPerRoom(area, totalRooms);
+  
+    // Prepare data to send to backend
+    const dataToSend = {
+      ...formData,
+      amenitycount: amenityCount, totalrooms: totalRooms, areaperroom: areaPerRoom,
+    };
+  
     try {
       const response = await fetch('http://127.0.0.1:5000/predict', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData) // Send form data as JSON
+        body: JSON.stringify(dataToSend), // Send form data as JSON
       });
-
+  
       const data = await response.json();
       setPrediction(data.prediction);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
+  // Value calculators
+  const calculateTotalRooms = (bedrooms,bathrooms) => {
+    return bedrooms + bathrooms;
+  }
+
+  const calculateAreaPerRoom = (area, totalRooms) => {
+    return area / totalRooms;
+  }
+
+  const calculateAmenityCount = (formData) => {
+    const { airconditioning, hotwaterheating, preferredArea, basement, guestroom, mainroad } = formData;
+    return [airconditioning, hotwaterheating, preferredArea, basement, guestroom, mainroad].filter(Boolean).length;
+  };
+
+  
 
   return (
     <div className="estimator-container">
@@ -143,10 +175,8 @@ const HomeEstimator = () => {
         <button type="submit" className="submit-button">Submit</button>
       </form>
       {prediction && <h3>Estimated Price: ${prediction}</h3>}
-      <p className="footer">App created by &lt;name&gt;, visit GitHub
-        <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">here</a></p>
-      <p className="disclaimer">App and Model uses somewhat fictional data from
-        <a href="https://www.kaggle.com/datasets/yasserh/housing-prices-dataset"
+      <p className="footer">App created by Kehinde Adeoso, visit GitHub <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">here</a></p>
+      <p className="disclaimer">App and Model uses somewhat fictional data from <a href="https://www.kaggle.com/datasets/yasserh/housing-prices-dataset"
       target="_blank" rel="noopener noreferrer">this</a> dataset, don't use for real analysis. </p>
     </div>
   );
