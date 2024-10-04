@@ -105,6 +105,14 @@ const HomeEstimator = () => {
       <h2>Estimate the cost of your home!</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-grid">
+          <input
+              type="number"
+              name="area"
+              value={formData.area}
+              onChange={handleChange}
+              placeholder="Total Area"
+              className="t-input"
+          />
           <select name="bedrooms" value={formData.bedrooms} onChange={handleChange} className="t-input">
             <option value="">Number of Bedrooms</option>
             {[1, 2, 3, 4].map(num => (
@@ -129,14 +137,6 @@ const HomeEstimator = () => {
                 <option key={num} value={num}>{num}</option>
             ))}
           </select>
-          <input
-              type="number"
-              name="totalRooms"
-              value={formData.totalRooms}
-              onChange={handleChange}
-              placeholder="Total Rooms"
-              className="t-input"
-          />
           <select name="furnishingStatus" value={formData.furnishingStatus} onChange={handleChange} className="t-input">
             <option value="0">Unfurnished</option>
             <option value="1">Semi-Furnished</option>
