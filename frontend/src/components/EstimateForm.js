@@ -33,34 +33,54 @@ const HomeEstimator = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-  
-    // Calculate the amenity count
-    const amenityCount = calculateAmenityCount(formData);
-    const totalRooms = calculateTotalRooms(formData.bedrooms, formData.bathrooms);
-    const areaPerRoom = calculateAreaPerRoom(formData.area, totalRooms);
-  
-    // Prepare data to send to backend
-    const dataToSend = {
-      ...formData,
-      amenitycount: amenityCount, totalrooms: totalRooms, areaperroom: areaPerRoom,
-    };
-  
-    try {
-      const response = await fetch('http://127.0.0.1:5000/predict', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dataToSend), // Send form data as JSON
-      });
-  
-      const data = await response.json();
-      setPrediction(data.prediction);
-    } catch (error) {
-      console.error('Error:', error);
-    }
+  event.preventDefault();
+
+  // Parse numerical values
+  const bedrooms = parseInt(formData.bedrooms);
+  const bathrooms = parseInt(formData.bathrooms);
+  const stories = parseInt(formData.stories);
+  const parking = parseInt(formData.parkingSpots);
+  const area = parseFloat(formData.area);
+
+  // Calculate values
+  const totalRooms = calculateTotalRooms(bedrooms, bathrooms);
+  const areaPerRoom = calculateAreaPerRoom(area, totalRooms);
+  const amenityCount = calculateAmenityCount(formData);
+
+  // Prepare data to send to backend
+  const dataToSend = {
+    area: area,
+    bedrooms: bedrooms,
+    bathrooms: bathrooms,
+    stories: stories,
+    mainroad: formData.mainroad ? 1 : 0,
+    guestroom: formData.guestroom ? 1 : 0,
+    basement: formData.basement ? 1 : 0,
+    hotwaterheating: formData.hotwaterheating ? 1 : 0,
+    airconditioning: formData.airconditioning ? 1 : 0,
+    parking: parking,
+    prefarea: formData.preferredArea ? 1 : 0,
+    total_rooms: totalRooms,
+    area_per_room: areaPerRoom,
+    amenity_count: amenityCount,
   };
+
+  try {
+    const response = await fetch('http://127.0.0.1:5000/predict', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataToSend),
+    });
+
+    const data = await response.json();
+    setPrediction(data.predicted_price);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
 
   // Value calculators
   const calculateTotalRooms = (bedrooms,bathrooms) => {
