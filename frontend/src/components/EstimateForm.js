@@ -3,6 +3,7 @@ import './EstimateForm.css';
 
 const HomeEstimator = () => {
   const [formData, setFormData] = useState({
+    area:'',
     bedrooms: '',
     bathrooms: '',
     stories: '',
@@ -59,6 +60,7 @@ const HomeEstimator = () => {
     hotwaterheating: formData.hotwaterheating ? 1 : 0,
     airconditioning: formData.airconditioning ? 1 : 0,
     parking: parking,
+    furnishingstatus: formData.furnishingStatus,
     prefarea: formData.preferredArea ? 1 : 0,
     total_rooms: totalRooms,
     area_per_room: areaPerRoom,
