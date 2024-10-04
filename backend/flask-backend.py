@@ -27,7 +27,10 @@ def predict():
         data['hotwaterheating'],
         data['airconditioning'],
         data['parking'],
-        data['prefarea']
+        data['prefarea'],
+        data['total_rooms'],
+        data['area_per_room'],
+        data['amenity_count']
     ]
 
     # Reshape the features to match the input shape expected by the model
