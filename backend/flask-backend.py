@@ -20,21 +20,21 @@ def predict():
     data = request.get_json()
 
     # Extract features from the input data
-    area = int(data['area']),
-    bedrooms = int(data['bedrooms']),
-    bathrooms = int(data['bathrooms']),
-    stores = int(data['stories']),
-    mainroad = int(data['mainroad']),
-    guestroom = int(data['guestroom']),
-    basement = int(data['basement']),
-    hotwaterheating = int(data['hotwaterheating']),
-    airconditioning = int(data['airconditioning']),
-    parking = int(data['parking']),
-    prefarea = int(data['prefarea']),
-    furnishingstatus = int(data['furnishingstatus']),
-    total_rooms = int(data['total_rooms']),
-    area_per_room = float(data['area_per_room']),
-    amenity_count =int(data['amenity_count'])
+    area = int(data['area'])
+    bedrooms = int(data['bedrooms'])
+    bathrooms = int(data['bathrooms'])
+    stories = int(data['stories'])
+    mainroad = int(data['mainroad'])
+    guestroom = int(data['guestroom'])
+    basement = int(data['basement'])
+    hotwaterheating = int(data['hotwaterheating'])
+    airconditioning = int(data['airconditioning'])
+    parking = int(data['parking'])
+    prefarea = int(data['prefarea'])
+    furnishingstatus = int(data['furnishingstatus'])
+    total_rooms = int(data['total_rooms'])
+    area_per_room = float(data['area_per_room'])
+    amenity_count = int(data['amenity_count'])
 
     # Preparing a dataframe for scaled data
     input_data = {
@@ -90,8 +90,11 @@ def predict():
     original_values = scaler.inverse_transform(output_df)
     predicted_price = original_values[0][scaled_columns.index('price')]
 
-    # Return the prediction as a JSON response
-    return jsonify({'predicted_price': prediction[0]})
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
