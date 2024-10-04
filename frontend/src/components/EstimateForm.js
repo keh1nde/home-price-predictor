@@ -37,8 +37,8 @@ const HomeEstimator = () => {
   
     // Calculate the amenity count
     const amenityCount = calculateAmenityCount(formData);
-    const totalRooms = calculateTotalRooms(bedrooms, bathrooms);
-    const areaPerRoom = calculateAreaPerRoom(area, totalRooms);
+    const totalRooms = calculateTotalRooms(formData.bedrooms, formData.bathrooms);
+    const areaPerRoom = calculateAreaPerRoom(formData.area, totalRooms);
   
     // Prepare data to send to backend
     const dataToSend = {
