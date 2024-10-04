@@ -15,7 +15,7 @@ def predict():
     # Get the data from the POST request
     data = request.get_json()
 
-    # Extract features from the input data (ensure this matches your feature set)
+    # Extract features from the input data
     features = [
         data['area'],
         data['bedrooms'],
@@ -28,6 +28,7 @@ def predict():
         data['airconditioning'],
         data['parking'],
         data['prefarea'],
+        data['furnishingstatus'],
         data['total_rooms'],
         data['area_per_room'],
         data['amenity_count']
